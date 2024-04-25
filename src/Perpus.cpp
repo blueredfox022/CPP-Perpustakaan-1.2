@@ -9,6 +9,8 @@ int MenuPerpus()
     std::cout << "2. Tambah Buku" << std::endl;
     std::cout << "3. Edit Data Buku" << std::endl;
     std::cout << "4. Hapus Data Buku" << std::endl;
+    std::cout << "5. Cari judul Buku  (Squential Search)" << std::endl;
+    std::cout << "6. Cari nama Penerbit (Binary Search)" << std::endl;
     std::cout << "0. Keluar" << std::endl;
     std::cout << "Silahkan Pilih: ";
     std::cin >> pilihan;
@@ -211,6 +213,16 @@ void AdminPerpus(ArrPerpustakaan &perpustakaan)
             LihatDaftarBuku(perpustakaan);
             HapusDataBuku(perpustakaan);
             break;
+        case 5:
+            std::cout << "Cari Buku perpustakaan (Squential Search)" << std::endl;
+            LihatDaftarBuku(perpustakaan);
+            SqueantialSearch(perpustakaan);
+            break;
+        case 6:
+            std::cout << "Cari Buku perpustakaan (Binary Search)" << std::endl;
+            LihatDaftarBuku(perpustakaan);
+            BinarySearch(perpustakaan);
+            break;
         default:
             std::cout << "Pilihan tidak valid" << std::endl;
             break;
@@ -226,4 +238,61 @@ void AdminPerpus(ArrPerpustakaan &perpustakaan)
         menu = MenuPerpus();
         /* code */
     }
+}
+
+void SqueantialSearch(ArrPerpustakaan &perpustakaan)
+{
+    std::string cariBuku;
+    std::cout << "Masukan Judul Buku yang akan dicari : ";
+    std::cin >> cariBuku;
+    bool isFound = false;
+    int size = getDataSizePerpus(perpustakaan);
+    for (int i = 0; i < size; i++)
+    {
+        Perpustakaan readData = ReadDataPerpus(perpustakaan, i);
+        if (readData.judulBuku == cariBuku)
+        {
+            std::cout << "Ditemukan " << std::endl;
+            std::cout << "Judul Buku    : " << readData.judulBuku << std::endl;
+            std::cout << "Penerbit Buku : " << readData.penerbit << std::endl;
+            isFound = true;
+
+            break;
+        }
+    }
+    if (!isFound)
+    {
+        std::cout << "data tidak ditemukan" << std::endl;
+    }
+}
+
+void BinarySearch(ArrPerpustakaan &perpustakaan)
+{
+    std::string cariBuku;
+    std::cout << "Masukan Nama Penerbit yang akan dicari : ";
+    std::cin >> cariBuku;
+    bool isFound = false;
+    int size = getDataSizePerpus(perpustakaan);
+    int low = 0, high = size - 1;
+    while (low <= high)
+    {
+
+        int mid = low + (high - low) / 2;
+        if (perpustakaan[mid].penerbit == cariBuku)
+        {
+            std::cout << "data ditemukan pada record ke- " << mid << std::endl;
+            std::cout << "Judul Buku    : " << perpustakaan[mid].judulBuku << std::endl;
+            std::cout << "Nama Penerbit : " << perpustakaan[mid].penerbit << std::endl;
+            return;
+        }
+        else if (perpustakaan[mid].penerbit < cariBuku)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+    std::cout << "data tidak ditemukan" << std::endl;
 }

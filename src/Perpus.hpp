@@ -20,5 +20,7 @@ void EditDataBuku(ArrPerpustakaan &perpustakaan);
 void DeleteDataPerpus(ArrPerpustakaan &perpustakaan, Perpustakaan &hapusData);
 void HapusDataBuku(ArrPerpustakaan &perpustakaan);
 void AdminPerpus(ArrPerpustakaan &perpustakaan);
+void SqueantialSearch(ArrPerpustakaan &perpustakaan);
+void BinarySearch(ArrPerpustakaan &perpustakaan);
 
 #endif
